@@ -1,7 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "description": "uitspitss の共有 Renovate プリセット",
-  "extends": ["config:recommended"],
+  "extends": ["config:recommended", "helpers:pinGitHubActionDigests"],
   "timezone": "Asia/Tokyo",
   "schedule": ["* 0-5 * * 1"],
   "dependencyDashboard": true,
@@ -12,9 +12,19 @@
   },
   "packageRules": [
     {
-      "description": "patch/minor は CI 成功時に自動マージ",
+      "description": "patch/minor は公開から3日経過後、CI 成功時に自動マージ",
       "matchUpdateTypes": ["minor", "patch"],
-      "automerge": true
+      "automerge": true,
+      "minimumReleaseAge": "3 days",
+      "internalChecksFilter": "strict"
+    },
+    {
+      "description": "GitHub Actions の digest 更新も公開から3日経過後、CI 成功時に自動マージ",
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["digest", "pinDigest"],
+      "automerge": true,
+      "minimumReleaseAge": "3 days",
+      "internalChecksFilter": "strict"
     },
     {
       "description": "major は自動マージしない",
