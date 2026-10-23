@@ -16,14 +16,37 @@
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true,
       "minimumReleaseAge": "3 days",
+      "minimumReleaseAgeBehaviour": "timestamp-required",
       "internalChecksFilter": "strict"
     },
     {
-      "description": "GitHub Actions の digest 更新も公開から3日経過後、CI 成功時に自動マージ",
+      "description": "GitHub Actions の digest 固定は公開から3日経過後、CI 成功時に自動マージ",
       "matchManagers": ["github-actions"],
-      "matchUpdateTypes": ["digest", "pinDigest"],
+      "matchUpdateTypes": ["pinDigest"],
       "automerge": true,
       "minimumReleaseAge": "3 days",
+      "minimumReleaseAgeBehaviour": "timestamp-required",
+      "internalChecksFilter": "strict"
+    },
+    {
+      "description": "GitHub 公式 Actions の digest 更新は公開から3日経過後、CI 成功時に自動マージ",
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["digest"],
+      "matchPackageNames": ["actions/**", "github/**"],
+      "automerge": true,
+      "minimumReleaseAge": "3 days",
+      "minimumReleaseAgeBehaviour": "timestamp-required",
+      "internalChecksFilter": "strict"
+    },
+    {
+      "description": "サードパーティ Actions の digest 更新は自動マージせず、1つの PR にまとめて手動レビュー",
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["digest"],
+      "matchPackageNames": ["!actions/**", "!github/**"],
+      "groupName": "third-party GitHub Actions digests",
+      "automerge": false,
+      "minimumReleaseAge": "3 days",
+      "minimumReleaseAgeBehaviour": "timestamp-required",
       "internalChecksFilter": "strict"
     },
     {
