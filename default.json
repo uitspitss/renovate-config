@@ -6,6 +6,7 @@
   "schedule": ["* 0-5 * * 1"],
   "dependencyDashboard": true,
   "platformAutomerge": true,
+  "postUpdateOptions": ["pnpmDedupe"],
   "lockFileMaintenance": {
     "enabled": true,
     "schedule": ["* 0-5 * * 1"]
