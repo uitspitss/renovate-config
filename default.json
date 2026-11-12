@@ -7,6 +7,10 @@
   "dependencyDashboard": true,
   "platformAutomerge": true,
   "postUpdateOptions": ["pnpmDedupe"],
+  "osvVulnerabilityAlerts": true,
+  "vulnerabilityAlerts": {
+    "labels": ["security"]
+  },
   "lockFileMaintenance": {
     "enabled": true,
     "schedule": ["* 0-5 * * 1"]
