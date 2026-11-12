@@ -28,7 +28,7 @@ uitspitss のリポジトリで共有する [Renovate](https://docs.renovatebot.
 | major | 自動マージしない（PR を手動でレビュー・マージ） |
 | Dependency Dashboard | 有効 |
 | lockFileMaintenance | 週1回（上記スケジュールと同じ枠） |
-| 脆弱性アラート | `osvVulnerabilityAlerts: true` で OSV データベースの脆弱性も検知。脆弱性修正 PR（`vulnerabilityAlerts`）には `security` ラベルを付与 |
+| 脆弱性アラート | `osvVulnerabilityAlerts: true` で OSV データベースの脆弱性も検知。脆弱性修正 PR（`vulnerabilityAlerts`）には `security` ラベルを付与。security PR は `minimumReleaseAge` を外し（即時作成）、major を含めて CI 通過で自動マージ |
 | 更新後の処理 | `postUpdateOptions: ["pnpmDedupe"]` で更新のたびに `pnpm dedupe` を実行（pnpm のリポジトリのみ） |
 
 ### 補足

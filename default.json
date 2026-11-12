@@ -9,7 +9,9 @@
   "postUpdateOptions": ["pnpmDedupe"],
   "osvVulnerabilityAlerts": true,
   "vulnerabilityAlerts": {
-    "labels": ["security"]
+    "labels": ["security"],
+    "minimumReleaseAge": null,
+    "automerge": true
   },
   "lockFileMaintenance": {
     "enabled": true,
