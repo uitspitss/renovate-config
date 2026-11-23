@@ -21,13 +21,13 @@ uitspitss のリポジトリで共有する [Renovate](https://docs.renovatebot.
 | --- | --- |
 | ベース | `config:recommended` と `helpers:pinGitHubActionDigests` を継承 |
 | スケジュール | 毎日 0:00〜5:59（`Asia/Tokyo`）。朝 6:51 の AI 巡回の前に PR が揃う |
-| PR 数の上限 | なし（`prHourlyLimit: 0`・`prConcurrentLimit: 0`）。仕分けは AI の定期巡回が行う |
+| PR 数の上限 | 1時間あたりは無制限（`prHourlyLimit: 0`）。同時オープンはリポジトリごとに15本（`prConcurrentLimit: 15`）で、マージで空いた分を次の実行で補充する。security PR と Node.js ランタイムは枠の対象外 |
 | Node.js ランタイム | mise・setup-node・Docker の `node` の patch / minor はスケジュール外でも随時 PR にする（自動マージの条件は他と同じ） |
 | patch / minor | 公開から3日経過後、CI（ステータスチェック）成功時に自動マージ。`platformAutomerge` 有効 |
 | GitHub Actions（digest 固定） | `pinDigest` は公開から3日経過後、CI 成功時に自動マージ |
 | GitHub Actions（公式の digest 更新） | `actions/**`・`github/**` は公開から3日経過後、CI 成功時に自動マージ |
 | GitHub Actions（サードパーティの digest 更新） | 自動マージしない。`third-party GitHub Actions digests` として1つの PR にまとめて手動レビュー |
-| major | 自動マージしない（PR を手動でレビュー・マージ） |
+| major | 自動マージしない。Dependency Dashboard でチェックしたものだけ PR にする（`dependencyDashboardApproval`）。security PR は承認不要 |
 | Dependency Dashboard | 有効 |
 | lockFileMaintenance | 週1回（毎週月曜 0:00〜5:59） |
 | 脆弱性アラート | `osvVulnerabilityAlerts: true` で OSV データベースの脆弱性も検知。脆弱性修正 PR（`vulnerabilityAlerts`）には `security` ラベルを付与。security PR は `minimumReleaseAge` を外し（即時作成）、major を含めて CI 通過で自動マージ |
