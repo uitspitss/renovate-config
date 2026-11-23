@@ -21,7 +21,7 @@ uitspitss のリポジトリで共有する [Renovate](https://docs.renovatebot.
 | --- | --- |
 | ベース | `config:recommended` と `helpers:pinGitHubActionDigests` を継承 |
 | スケジュール | 毎日 0:00〜5:59（`Asia/Tokyo`）。朝 6:51 の AI 巡回の前に PR が揃う |
-| PR 数の上限 | 1時間あたりは無制限（`prHourlyLimit: 0`）。同時オープンはリポジトリごとに15本（`prConcurrentLimit: 15`）で、マージで空いた分を次の実行で補充する。security PR と Node.js ランタイムは枠の対象外 |
+| PR 数の上限 | 1時間あたりは無制限（`prHourlyLimit: 0`）。同時オープンはリポジトリごとに15本（`prConcurrentLimit: 15`）で、マージで空いた分を次の実行で補充する。security PR と Node.js ランタイムの patch / minor は枠の対象外（Node.js の major は他の major と同じく承認制で、枠にも数える） |
 | Node.js ランタイム | mise・setup-node・Docker の `node` の patch / minor はスケジュール外でも随時 PR にする（自動マージの条件は他と同じ） |
 | patch / minor | 公開から3日経過後、CI（ステータスチェック）成功時に自動マージ。`platformAutomerge` 有効 |
 | GitHub Actions（digest 固定） | `pinDigest` は公開から3日経過後、CI 成功時に自動マージ |
