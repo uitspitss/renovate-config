@@ -4,6 +4,8 @@
   "extends": ["config:recommended", "helpers:pinGitHubActionDigests"],
   "timezone": "Asia/Tokyo",
   "schedule": ["* 0-5 * * 1"],
+  "prHourlyLimit": 0,
+  "prConcurrentLimit": 0,
   "dependencyDashboard": true,
   "platformAutomerge": true,
   "postUpdateOptions": ["pnpmDedupe"],
@@ -60,6 +62,13 @@
       "description": "major は自動マージしない",
       "matchUpdateTypes": ["major"],
       "automerge": false
+    },
+    {
+      "description": "Node.js ランタイム（mise / setup-node / Docker の node）の patch/minor はスケジュールを待たずに随時 PR にする。OSV の security PR はランタイムを拾わないため",
+      "matchDatasources": ["node-version", "docker"],
+      "matchPackageNames": ["node"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "schedule": ["at any time"]
     }
   ]
 }
