@@ -5,7 +5,7 @@
   "timezone": "Asia/Tokyo",
   "schedule": ["* 0-5 * * *"],
   "prHourlyLimit": 0,
-  "prConcurrentLimit": 0,
+  "prConcurrentLimit": 15,
   "dependencyDashboard": true,
   "platformAutomerge": true,
   "postUpdateOptions": ["pnpmDedupe"],
@@ -13,6 +13,8 @@
   "vulnerabilityAlerts": {
     "labels": ["security"],
     "minimumReleaseAge": null,
+    "dependencyDashboardApproval": false,
+    "prConcurrentLimit": 0,
     "automerge": true
   },
   "lockFileMaintenance": {
@@ -59,16 +61,18 @@
       "internalChecksFilter": "strict"
     },
     {
-      "description": "major は自動マージしない",
+      "description": "major は自動マージせず、Dependency Dashboard でチェックしたものだけ PR にする（同時 PR 数の枠を major で埋めないため）",
       "matchUpdateTypes": ["major"],
-      "automerge": false
+      "automerge": false,
+      "dependencyDashboardApproval": true
     },
     {
       "description": "Node.js ランタイム（mise / setup-node / Docker の node）の patch/minor はスケジュールを待たずに随時 PR にする。OSV の security PR はランタイムを拾わないため",
       "matchDatasources": ["node-version", "docker"],
       "matchPackageNames": ["node"],
       "matchUpdateTypes": ["minor", "patch"],
-      "schedule": ["at any time"]
+      "schedule": ["at any time"],
+      "prConcurrentLimit": 0
     }
   ]
 }
