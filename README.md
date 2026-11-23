@@ -20,7 +20,7 @@ uitspitss のリポジトリで共有する [Renovate](https://docs.renovatebot.
 | 項目 | 設定 |
 | --- | --- |
 | ベース | `config:recommended` と `helpers:pinGitHubActionDigests` を継承 |
-| スケジュール | 毎週月曜 0:00〜5:59（`Asia/Tokyo`） |
+| スケジュール | 毎日 0:00〜5:59（`Asia/Tokyo`）。朝 6:51 の AI 巡回の前に PR が揃う |
 | PR 数の上限 | なし（`prHourlyLimit: 0`・`prConcurrentLimit: 0`）。仕分けは AI の定期巡回が行う |
 | Node.js ランタイム | mise・setup-node・Docker の `node` の patch / minor はスケジュール外でも随時 PR にする（自動マージの条件は他と同じ） |
 | patch / minor | 公開から3日経過後、CI（ステータスチェック）成功時に自動マージ。`platformAutomerge` 有効 |
@@ -29,7 +29,7 @@ uitspitss のリポジトリで共有する [Renovate](https://docs.renovatebot.
 | GitHub Actions（サードパーティの digest 更新） | 自動マージしない。`third-party GitHub Actions digests` として1つの PR にまとめて手動レビュー |
 | major | 自動マージしない（PR を手動でレビュー・マージ） |
 | Dependency Dashboard | 有効 |
-| lockFileMaintenance | 週1回（上記スケジュールと同じ枠） |
+| lockFileMaintenance | 週1回（毎週月曜 0:00〜5:59） |
 | 脆弱性アラート | `osvVulnerabilityAlerts: true` で OSV データベースの脆弱性も検知。脆弱性修正 PR（`vulnerabilityAlerts`）には `security` ラベルを付与。security PR は `minimumReleaseAge` を外し（即時作成）、major を含めて CI 通過で自動マージ |
 | 更新後の処理 | `postUpdateOptions: ["pnpmDedupe"]` で更新のたびに `pnpm dedupe` を実行（pnpm のリポジトリのみ） |
 
@@ -39,7 +39,7 @@ uitspitss のリポジトリで共有する [Renovate](https://docs.renovatebot.
 - サードパーティ Actions の digest 更新はタグの付け替え（tj-actions/changed-files の事件のような攻撃）を含みうるため、自動マージせず人がレビューします。
 - 自動マージは CI が成功した場合のみ行われます（Renovate のデフォルト `ignoreTests: false`）。CI が無いリポジトリではステータスチェックが無いため、そのまま自動マージされる点に注意してください。
 - `pnpmDedupe` は、ロックファイルの再生成で同じパッケージが別の peer 依存で二重に入り、型の不一致で CI が落ちるのを防ぐためのものです（placeastro で `drizzle-orm` が二重になった件）。
-- Node.js ランタイムは OSV の脆弱性アラートの対象外で、security PR が出ません。週1のスケジュールに乗せたままだと、Node2Shell（CVE-2026-111497）のような修正も翌週まで PR にならないため、ランタイムだけスケジュールを外しています。
+- Node.js ランタイムは OSV の脆弱性アラートの対象外で、security PR が出ません。通常のスケジュール（毎日 0〜5 時）まで待たせず、Node2Shell（CVE-2026-111497）のような修正をすぐ PR にするため、ランタイムだけスケジュールを外しています。
 - `platformAutomerge` は GitHub のネイティブ自動マージを使うため、リポジトリ設定で **Allow auto-merge** を有効にし、ブランチ保護で必須ステータスチェックを設定しておく必要があります。
 
 ## 検証

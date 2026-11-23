@@ -3,7 +3,7 @@
   "description": "uitspitss の共有 Renovate プリセット",
   "extends": ["config:recommended", "helpers:pinGitHubActionDigests"],
   "timezone": "Asia/Tokyo",
-  "schedule": ["* 0-5 * * 1"],
+  "schedule": ["* 0-5 * * *"],
   "prHourlyLimit": 0,
   "prConcurrentLimit": 0,
   "dependencyDashboard": true,
