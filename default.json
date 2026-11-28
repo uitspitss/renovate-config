@@ -31,12 +31,11 @@
       "internalChecksFilter": "strict"
     },
     {
-      "description": "GitHub Actions の digest 固定は公開から3日経過後、CI 成功時に自動マージ",
+      "description": "GitHub Actions の digest 固定は CI 成功時に自動マージ。今使っているタグのコミットを固定するだけで新しいコードは入らないので待機は不要。pinDigest には公開日時が無く、timestamp-required の待機を付けると永久に pending になる（2026-11 に tv-news-with-tanstack #30 が5日止まった）",
       "matchManagers": ["github-actions"],
       "matchUpdateTypes": ["pinDigest"],
       "automerge": true,
-      "minimumReleaseAge": "3 days",
-      "minimumReleaseAgeBehaviour": "timestamp-required",
+      "minimumReleaseAge": null,
       "internalChecksFilter": "strict"
     },
     {
